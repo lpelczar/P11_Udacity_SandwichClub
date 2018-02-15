@@ -65,44 +65,36 @@ public class DetailActivity extends AppCompatActivity {
         nameView.setText(sandwich.getMainName());
 
         TextView alsoKnownView = findViewById(R.id.also_known_tv);
-        StringBuilder builder = new StringBuilder();
-        List<String> alsoKnownAs = sandwich.getAlsoKnownAs();
-        String alsoKnown;
-        if (alsoKnownAs.isEmpty()) {
-            alsoKnown = "NA";
-        } else {
-            for (int i = 0; i < alsoKnownAs.size(); i++) {
-                String known = alsoKnownAs.get(i);
-                builder.append(known);
-                if (i < alsoKnownAs.size() - 1) {
-                    builder.append(", ");
-                }
-            }
-            alsoKnown = builder.toString();
-        }
-        alsoKnownView.setText(alsoKnown);
+        alsoKnownView.setText(convertListToString(sandwich.getAlsoKnownAs()));
 
         TextView placeOfOriginView = findViewById(R.id.origin_tv);
-
         String origin = sandwich.getPlaceOfOrigin().isEmpty() ? "NA" : sandwich.getPlaceOfOrigin();
-
         placeOfOriginView.setText(origin);
 
         TextView descriptionView = findViewById(R.id.description_tv);
         descriptionView.setText(sandwich.getDescription());
 
         TextView ingredientsView = findViewById(R.id.ingredients_tv);
-        builder.setLength(0);
-        List<String> ingredients = sandwich.getIngredients();
-        for (int i = 0; i < ingredients.size(); i++) {
-            String known = ingredients.get(i);
-            builder.append(known);
-            if (i < ingredients.size() - 1) {
-                builder.append(", ");
-            }
-        }
-        String joinedIngredients = builder.toString();
-        ingredientsView.setText(joinedIngredients);
+        ingredientsView.setText(convertListToString(sandwich.getIngredients()));
 
+    }
+
+    private String convertListToString(List<String> list) {
+        StringBuilder builder = new StringBuilder();
+        String result;
+
+        if (list.isEmpty()) {
+            result = "NA";
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                String value = list.get(i);
+                builder.append(value);
+                if (i < list.size() - 1) {
+                    builder.append(", ");
+                }
+            }
+            result = builder.toString();
+        }
+        return result;
     }
 }
