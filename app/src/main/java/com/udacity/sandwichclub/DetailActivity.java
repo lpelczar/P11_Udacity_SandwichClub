@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
+import java.util.List;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
@@ -63,16 +65,44 @@ public class DetailActivity extends AppCompatActivity {
         nameView.setText(sandwich.getMainName());
 
         TextView alsoKnownView = findViewById(R.id.also_known_tv);
-        alsoKnownView.setText(sandwich.getAlsoKnownAs().toString());
+        StringBuilder builder = new StringBuilder();
+        List<String> alsoKnownAs = sandwich.getAlsoKnownAs();
+        String alsoKnown;
+        if (alsoKnownAs.isEmpty()) {
+            alsoKnown = "NA";
+        } else {
+            for (int i = 0; i < alsoKnownAs.size(); i++) {
+                String known = alsoKnownAs.get(i);
+                builder.append(known);
+                if (i < alsoKnownAs.size() - 1) {
+                    builder.append(", ");
+                }
+            }
+            alsoKnown = builder.toString();
+        }
+        alsoKnownView.setText(alsoKnown);
 
         TextView placeOfOriginView = findViewById(R.id.origin_tv);
-        placeOfOriginView.setText(sandwich.getPlaceOfOrigin());
+
+        String origin = sandwich.getPlaceOfOrigin().isEmpty() ? "NA" : sandwich.getPlaceOfOrigin();
+
+        placeOfOriginView.setText(origin);
 
         TextView descriptionView = findViewById(R.id.description_tv);
         descriptionView.setText(sandwich.getDescription());
 
         TextView ingredientsView = findViewById(R.id.ingredients_tv);
-        ingredientsView.setText(sandwich.getIngredients().toString());
+        builder.setLength(0);
+        List<String> ingredients = sandwich.getIngredients();
+        for (int i = 0; i < ingredients.size(); i++) {
+            String known = ingredients.get(i);
+            builder.append(known);
+            if (i < ingredients.size() - 1) {
+                builder.append(", ");
+            }
+        }
+        String joinedIngredients = builder.toString();
+        ingredientsView.setText(joinedIngredients);
 
     }
 }
