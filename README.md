@@ -4,7 +4,7 @@ Project 11: Sandwich Club - Complete an app by building a layout and populating 
 
 ## Project Overview
 
-In this project, you will complete the **Sandwich Club** app to
+In this project, you will complete the Sandwich Club app to
 show the details of each sandwich once it is selected.
 
 ## Why this Project
